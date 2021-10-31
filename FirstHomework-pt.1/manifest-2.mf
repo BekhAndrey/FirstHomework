@@ -1,0 +1,2 @@
+main-class: com.bekh.Main
+class-path: bin/ lib/java-util-1.65.0.jar
