@@ -11,11 +11,13 @@ public class TicTacToe {
 
     private char[][] gameField;
     private Scanner scanner;
+    private Random random;
 
 
     public TicTacToe() {
         this.gameField = new char[3][3];
         this.scanner = new Scanner(System.in);
+        this.random = new Random();
     }
 
     public void playVsHuman() {
@@ -24,18 +26,20 @@ public class TicTacToe {
             humanTurn(X_MARK);
             printGameField();
             if (checkForWin(X_MARK)) {
+                System.out.println("Player 1 won!\n");
                 break;
             }
-            if(checkForFull()){
+            if (checkForFull()) {
                 System.out.println("Game field is full, draw!\n");
                 break;
             }
             humanTurn(O_MARK);
             printGameField();
             if (checkForWin(O_MARK)) {
+                System.out.println("Player 2 won!\n");
                 break;
             }
-            if(checkForFull()){
+            if (checkForFull()) {
                 System.out.println("Game field is full, draw!\n");
                 break;
             }
@@ -43,7 +47,29 @@ public class TicTacToe {
     }
 
     public void playVsAI() {
-
+        clearGameField();
+        while (true) {
+            humanTurn(X_MARK);
+            printGameField();
+            if (checkForWin(X_MARK)) {
+                System.out.println("Player 1 won!\n");
+                break;
+            }
+            if (checkForFull()) {
+                System.out.println("Game field is full, draw!\n");
+                break;
+            }
+            AITurn();
+            printGameField();
+            if (checkForWin(O_MARK)) {
+                System.out.println("AI won!\n");
+                break;
+            }
+            if (checkForFull()) {
+                System.out.println("Game field is full, draw!\n");
+                break;
+            }
+        }
     }
 
     private void clearGameField() {
@@ -65,38 +91,27 @@ public class TicTacToe {
     }
 
     private boolean checkCell(int row, int column) {
-        if (gameField[row][column] == EMPTY) {
-            return true;
-        } else {
-            System.out.println("This cell is not empty, select another one!");
-            return false;
-        }
+        return gameField[row][column] == EMPTY;
     }
 
     private boolean checkForWin(char mark) {
-        int playerNumber = mark == X_MARK ? 1 : 2;
         for (int i = 0; i < 3; i++) {
             if (gameField[i][0] == mark && gameField[i][1] == mark && gameField[i][2] == mark ||
                     gameField[0][i] == mark && gameField[1][i] == mark && gameField[2][i] == mark) {
-                System.out.println("Player " + playerNumber + " won!\n");
                 return true;
             }
         }
-        if (gameField[0][0] == mark && gameField[1][1] == mark && gameField[2][2] == mark) {
-            System.out.println("Player " + playerNumber + " won!\n");
+        if (gameField[0][0] == mark && gameField[1][1] == mark && gameField[2][2] == mark ||
+                gameField[0][2] == mark && gameField[1][1] == mark && gameField[2][0] == mark) {
             return true;
-        } else if(gameField[0][2] == mark && gameField[1][1] == mark && gameField[2][0] == mark){
-            System.out.println("Player " + playerNumber + " won!\n");
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    private boolean checkForFull(){
-        for (int i = 0; i<3; i++){
-            for(int j =0; j<3; j++){
-                if(gameField[i][j]==EMPTY){
+    private boolean checkForFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gameField[i][j] == EMPTY) {
                     return false;
                 }
             }
@@ -118,10 +133,30 @@ public class TicTacToe {
                 if (checkCell(row, column)) {
                     gameField[row][column] = mark;
                     break;
+                } else {
+                    System.out.println("This cell is not empty, select another one!");
                 }
             } catch (Throwable e) {
                 System.out.println("Invalid input;");
             }
         }
+    }
+
+    private void AITurn() {
+        int row;
+        int column;
+        while (true) {
+            try {
+                row = random.nextInt(3);
+                column = random.nextInt(3);
+                if (checkCell(row, column)) {
+                    gameField[row][column] = O_MARK;
+                    break;
+                }
+            } catch (Throwable e) {
+
+            }
+        }
+        System.out.println("AI made choice;");
     }
 }
