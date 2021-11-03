@@ -20,17 +20,25 @@ public class TicTacToe {
 
     public void playVsHuman() {
         clearGameField();
-        while (true){
+        while (true) {
             humanTurn(X_MARK);
-            if(checkForWin(X_MARK)){
+            printGameField();
+            if (checkForWin(X_MARK)) {
                 break;
             }
-            printGameField();
+            if(checkForFull()){
+                System.out.println("Game field is full, draw!\n");
+                break;
+            }
             humanTurn(O_MARK);
-            if(checkForWin(O_MARK)){
+            printGameField();
+            if (checkForWin(O_MARK)) {
                 break;
             }
-            printGameField();
+            if(checkForFull()){
+                System.out.println("Game field is full, draw!\n");
+                break;
+            }
         }
     }
 
@@ -56,7 +64,7 @@ public class TicTacToe {
         }
     }
 
-    private boolean checkCell(Integer row, Integer column) {
+    private boolean checkCell(int row, int column) {
         if (gameField[row][column] == EMPTY) {
             return true;
         } else {
@@ -66,30 +74,46 @@ public class TicTacToe {
     }
 
     private boolean checkForWin(char mark) {
-        Integer playerNumber = mark == X_MARK ? 1 : 2;
+        int playerNumber = mark == X_MARK ? 1 : 2;
         for (int i = 0; i < 3; i++) {
-            if (gameField[i][0] == mark && gameField[i][1]== mark && gameField[i][2]== mark ||
-                    gameField[0][i] == mark && gameField[1][i]== mark && gameField[2][i]== mark) {
-                System.out.println("Player " + playerNumber + " won!");
+            if (gameField[i][0] == mark && gameField[i][1] == mark && gameField[i][2] == mark ||
+                    gameField[0][i] == mark && gameField[1][i] == mark && gameField[2][i] == mark) {
+                System.out.println("Player " + playerNumber + " won!\n");
                 return true;
             }
         }
-        if(gameField[0][0]==mark && gameField[1][1] == mark && gameField[2][2] ==mark){
-            System.out.println("Player " + playerNumber + " won!");
+        if (gameField[0][0] == mark && gameField[1][1] == mark && gameField[2][2] == mark) {
+            System.out.println("Player " + playerNumber + " won!\n");
             return true;
+        } else if(gameField[0][2] == mark && gameField[1][1] == mark && gameField[2][0] == mark){
+            System.out.println("Player " + playerNumber + " won!\n");
+            return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+    private boolean checkForFull(){
+        for (int i = 0; i<3; i++){
+            for(int j =0; j<3; j++){
+                if(gameField[i][j]==EMPTY){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void humanTurn(char mark) {
-        Integer row;
-        Integer column;
-        Integer playerNumber = mark == X_MARK ? 1 : 2;
+        int row;
+        int column;
+        int playerNumber = mark == X_MARK ? 1 : 2;
         while (true) {
             try {
-                System.out.println("(Player " + playerNumber + ")Please, enter row number(1-3): ");
+                System.out.println("Player " + playerNumber + ":");
+                System.out.println("Please, enter row number(1-3): ");
                 row = scanner.nextInt() - 1;
-                System.out.println("(Player " + playerNumber + ")Please, enter column number(1-3): ");
+                System.out.println("Please, enter column number(1-3): ");
                 column = scanner.nextInt() - 1;
                 if (checkCell(row, column)) {
                     gameField[row][column] = mark;
