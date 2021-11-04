@@ -9,13 +9,13 @@ public class TicTacToe {
     private final char O_MARK = 'o';
     private final char EMPTY = '-';
 
-    private char[][] gameField;
+    private char[][] gameBoard;
     private Scanner scanner;
     private Random random;
 
 
     public TicTacToe() {
-        this.gameField = new char[3][3];
+        this.gameBoard = new char[3][3];
         this.scanner = new Scanner(System.in);
         this.random = new Random();
     }
@@ -30,7 +30,7 @@ public class TicTacToe {
                 break;
             }
             if (checkForFull()) {
-                System.out.println("Game field is full, draw!\n");
+                System.out.println("Game board is full, draw!\n");
                 break;
             }
             humanTurn(O_MARK);
@@ -40,7 +40,7 @@ public class TicTacToe {
                 break;
             }
             if (checkForFull()) {
-                System.out.println("Game field is full, draw!\n");
+                System.out.println("Game board is full, draw!\n");
                 break;
             }
         }
@@ -56,7 +56,7 @@ public class TicTacToe {
                 break;
             }
             if (checkForFull()) {
-                System.out.println("Game field is full, draw!\n");
+                System.out.println("Game board is full, draw!\n");
                 break;
             }
             AITurn();
@@ -66,7 +66,7 @@ public class TicTacToe {
                 break;
             }
             if (checkForFull()) {
-                System.out.println("Game field is full, draw!\n");
+                System.out.println("Game board is full, draw!\n");
                 break;
             }
         }
@@ -75,34 +75,34 @@ public class TicTacToe {
     private void clearGameField() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                gameField[i][j] = EMPTY;
+                gameBoard[i][j] = EMPTY;
             }
         }
-        System.out.println("Game begins!");
+        System.out.println("The game begins!");
     }
 
     private void printGameField() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.print(gameField[i][j] + " ");
+                System.out.print(gameBoard[i][j] + " ");
             }
             System.out.println();
         }
     }
 
     private boolean checkCell(int row, int column) {
-        return gameField[row][column] == EMPTY;
+        return gameBoard[row][column] == EMPTY;
     }
 
     private boolean checkForWin(char mark) {
         for (int i = 0; i < 3; i++) {
-            if (gameField[i][0] == mark && gameField[i][1] == mark && gameField[i][2] == mark ||
-                    gameField[0][i] == mark && gameField[1][i] == mark && gameField[2][i] == mark) {
+            if (gameBoard[i][0] == mark && gameBoard[i][1] == mark && gameBoard[i][2] == mark ||
+                    gameBoard[0][i] == mark && gameBoard[1][i] == mark && gameBoard[2][i] == mark) {
                 return true;
             }
         }
-        if (gameField[0][0] == mark && gameField[1][1] == mark && gameField[2][2] == mark ||
-                gameField[0][2] == mark && gameField[1][1] == mark && gameField[2][0] == mark) {
+        if (gameBoard[0][0] == mark && gameBoard[1][1] == mark && gameBoard[2][2] == mark ||
+                gameBoard[0][2] == mark && gameBoard[1][1] == mark && gameBoard[2][0] == mark) {
             return true;
         }
         return false;
@@ -111,7 +111,7 @@ public class TicTacToe {
     private boolean checkForFull() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gameField[i][j] == EMPTY) {
+                if (gameBoard[i][j] == EMPTY) {
                     return false;
                 }
             }
@@ -131,7 +131,7 @@ public class TicTacToe {
                 System.out.println("Please, enter column number(1-3): ");
                 column = scanner.nextInt() - 1;
                 if (checkCell(row, column)) {
-                    gameField[row][column] = mark;
+                    gameBoard[row][column] = mark;
                     break;
                 } else {
                     System.out.println("This cell is not empty, select another one!");
@@ -150,7 +150,7 @@ public class TicTacToe {
                 row = random.nextInt(3);
                 column = random.nextInt(3);
                 if (checkCell(row, column)) {
-                    gameField[row][column] = O_MARK;
+                    gameBoard[row][column] = O_MARK;
                     break;
                 }
             } catch (Throwable e) {
