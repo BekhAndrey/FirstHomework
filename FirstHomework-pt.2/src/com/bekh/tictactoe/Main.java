@@ -1,4 +1,4 @@
-package com.bekh;
+package com.bekh.tictactoe;
 
 import java.util.Scanner;
 
