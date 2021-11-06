@@ -21,6 +21,8 @@ public class Main {
                     ticTacToe.playVsAI();
                     break;
                 case 3:
+                    scanner.close();
+                    ticTacToe.closeScanner();
                     System.exit(0);
                 default:
                     System.out.println("Invalid input;");

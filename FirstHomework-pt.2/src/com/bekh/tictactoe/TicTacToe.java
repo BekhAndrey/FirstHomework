@@ -159,4 +159,9 @@ public class TicTacToe {
         }
         System.out.println("AI made choice;");
     }
+
+    //Not sure if its a good solution
+    public void closeScanner(){
+        scanner.close();
+    }
 }
