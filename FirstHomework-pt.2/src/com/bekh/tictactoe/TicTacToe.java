@@ -73,8 +73,8 @@ public class TicTacToe {
     }
 
     private void clearGameField() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard.length; j++) {
                 gameBoard[i][j] = EMPTY;
             }
         }
@@ -82,8 +82,8 @@ public class TicTacToe {
     }
 
     private void printGameField() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard.length; j++) {
                 System.out.print(gameBoard[i][j] + " ");
             }
             System.out.println();
@@ -95,7 +95,7 @@ public class TicTacToe {
     }
 
     private boolean checkForWin(char mark) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < gameBoard.length; i++) {
             if (gameBoard[i][0] == mark && gameBoard[i][1] == mark && gameBoard[i][2] == mark ||
                     gameBoard[0][i] == mark && gameBoard[1][i] == mark && gameBoard[2][i] == mark) {
                 return true;
@@ -109,8 +109,8 @@ public class TicTacToe {
     }
 
     private boolean checkForFull() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard.length; j++) {
                 if (gameBoard[i][j] == EMPTY) {
                     return false;
                 }
